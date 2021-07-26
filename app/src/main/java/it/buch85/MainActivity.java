@@ -37,7 +37,9 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
 	private TimbrumPreferences timbrumPreferences;
 	private ListView listView;
 	private Button buttonRefresh;
