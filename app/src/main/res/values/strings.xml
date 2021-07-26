@@ -38,4 +38,6 @@
     <string name="confirm_exit_title">Exit Confirmation</string>
     <string name="confirm_entry_message">Are you sure you want to sign-in?</string>
     <string name="confirm_exit_message">Are you sure you want to sign-out?</string>
+    <string name="header1summary">header1summary</string>
+    <string name="header1title">header1title</string>
 </resources>

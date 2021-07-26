@@ -1,25 +1,7 @@
 package it.buch85;
 
-import it.buch85.prefs.SettingsActivity;
-import it.buch85.prefs.TimbrumPreferences;
-import it.buch85.request.LoginRequest.LoginResult;
-import it.buch85.request.RecordTimbratura;
-import it.buch85.request.TimbraturaRequest;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.CountDownLatch;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
-import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -38,6 +20,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
+
+import it.buch85.prefs.SettingsActivity;
+import it.buch85.prefs.TimbrumPreferences;
+import it.buch85.request.LoginRequest.LoginResult;
+import it.buch85.request.RecordTimbratura;
+import it.buch85.request.TimbraturaRequest;
 
 public class MainActivity extends AppCompatActivity {
     private TimbrumPreferences timbrumPreferences;
@@ -176,18 +172,18 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			startActivity(new Intent(this, SettingsActivity.class));
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public static String formatTime(long millis) {
         long minute = (long) ((millis / (1000d * 60)) % 60);
@@ -217,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setTitle(getString(R.string.loading));
             progressDialog.setMessage(getString(R.string.please_wait));
-            timbrum = new Timbrum(timbrumPreferences.getHost(), timbrumPreferences.getUsername(), timbrumPreferences.getPassword());
+            timbrum = new Timbrum(timbrumPreferences.getHost(), timbrumPreferences.getUsername(), timbrumPreferences.getPassword(), getBaseContext());
         }
 
         @Override
