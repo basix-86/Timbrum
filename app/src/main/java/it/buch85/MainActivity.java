@@ -24,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -273,10 +272,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if (isConfirmed) {
                             publishProgress(getString(R.string.loading_workspace));
-                            String mcId = timbrum.getWorkspace();
+                            String timbraturaId = timbrum.loadTimbraturaId();
                             publishProgress(getString(R.string.timbrum_in_progress));
 
-                            timbrum.timbra(versoTimbratura, mcId);
+                            timbrum.timbra(versoTimbratura, timbraturaId);
                         } else {
                             return report;
                         }

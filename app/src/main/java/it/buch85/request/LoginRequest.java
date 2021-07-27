@@ -9,31 +9,24 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class LoginRequest extends AbstractRequest {
+public class LoginRequest {
 
-    public LoginRequest(OkHttpClient client) {
-        super(client);
-    }
+    private static final String USERNAME_FIELD = "m_cUserName";
+    private static final String PASSWORD_FIELD = "m_cPassword";
+    private static final String ACTION_FIELD = "m_cAction";
+    private static final String ACTION_FIELD_VALUE = "login";
 
-    String username = "";
-    String password = "";
+    private static final String REDIRECT_OK_URL = "/jsp/home.jsp";
 
-    private static String USERNAME_FIELD = "m_cUserName";
-    private static String PASSWORD_FIELD = "m_cPassword";
-    private static String ACTION_FIELD = "m_cAction";
-    private static String ACTION_FIELD_VALUE = "login";
+    private final OkHttpClient client;
+    private final String url;
+    private final String username;
+    private final String password;
 
-    private static String REDIRECT_OK_URL = "/jsp/home.jsp";
-
-    public void setUrl(String url) {
+    public LoginRequest(OkHttpClient client, String url, String username, String password) {
+        this.client = client;
         this.url = url;
-    }
-
-    public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -56,7 +49,8 @@ public class LoginRequest extends AbstractRequest {
         String message = "";
 
         if (response.code() == 302) {
-            if (response.header("Location").endsWith(REDIRECT_OK_URL)) {
+            String location = response.header("Location");
+            if (location != null && location.endsWith(REDIRECT_OK_URL)) {
                 return new LoginResult(true, message);
             }
         } else {

@@ -1,8 +1,8 @@
 package it.buch85.request;
 
 public class LoginResult {
-    boolean success = false;
-    String message = "";
+    private final boolean success;
+    private final String message;
 
     public LoginResult(boolean success, String message) {
         this.success = success;

@@ -1,7 +1,5 @@
 package it.buch85;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -12,6 +10,7 @@ import it.buch85.request.LoginRequest;
 import it.buch85.request.LoginResult;
 import it.buch85.request.RecordTimbratura;
 import it.buch85.request.ReportRequest;
+import it.buch85.request.RequestException;
 import it.buch85.request.TimbraturaRequest;
 import it.buch85.request.WorkspaceRequest;
 import okhttp3.CookieJar;
@@ -24,27 +23,24 @@ import okhttp3.OkHttpClient;
  */
 public class Timbrum {
 
-
-    public static String LOGIN_URL = "/servlet/cp_login";
-    public static String TIMBRUS_URL = "/servlet/ushp_ftimbrus";
-    public static String SQL_DATA_PROVIDER_URL = "/servlet/SQLDataProviderServer";
-    public static String WORKSPACE_URL = "/jsp/gsmd_container.jsp?containerCode=MYDESK&pTitle=My%20Workspace";
+    private static final String LOGIN_URL = "/servlet/cp_login";
+    private static final String TIMBRUS_URL = "/servlet/ushp_ftimbrus";
+    private static final String SQL_DATA_PROVIDER_URL = "/servlet/SQLDataProviderServer";
+    private static final String WORKSPACE_URL = "/jsp/gsmd_container.jsp?containerCode=MYDESK&pTitle=My%20Workspace";
 
     private final String username;
     private final String password;
-    private String host;
-    private static final OkHttpClient client = createClient(); //todo fix me!
+    private final String host;
+
+    private final OkHttpClient client = createClient();
 
     public Timbrum(String host, String username, String password) {
         this.host = host;
         this.username = username;
         this.password = password;
-
-//        client = createClient();
     }
 
-    @NotNull
-    private static OkHttpClient createClient() {
+    private OkHttpClient createClient() {
         final OkHttpClient client;
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -58,35 +54,29 @@ public class Timbrum {
     }
 
     public ArrayList<RecordTimbratura> getReport(Date date) throws Exception {
-        ReportRequest report = new ReportRequest(client);
-        report.setUrl(host + SQL_DATA_PROVIDER_URL);
+        ReportRequest report = new ReportRequest(client, host + SQL_DATA_PROVIDER_URL);
         return report.getTimbrature(new Date());
 
     }
 
     public LoginResult login() throws IOException {
-        LoginRequest login = new LoginRequest(client);
-        login.setUrl(host + LOGIN_URL);
-        login.setUsername(username);
-        login.setPassword(password);
+        LoginRequest login = new LoginRequest(client, host + LOGIN_URL, username, password);
         return login.submit();
     }
 
 
-    public void timbra(String verso, String mcId) throws IOException {
-        TimbraturaRequest timbratura = new TimbraturaRequest(client);
-        timbratura.setUrl(host + TIMBRUS_URL);
+    public void timbra(String verso, String timbraturaId) throws IOException {
+        TimbraturaRequest timbratura = new TimbraturaRequest(client, host + TIMBRUS_URL);
         if (TimbraturaRequest.VERSO_ENTRATA.equals(verso)) {
-            timbratura.entrata(mcId);
+            timbratura.entrata(timbraturaId);
         } else {
-            timbratura.uscita(mcId);
+            timbratura.uscita(timbraturaId);
         }
     }
 
-    public String getWorkspace() throws IOException {
-        WorkspaceRequest workspaceRequest = new WorkspaceRequest(client);
-        workspaceRequest.setUrl(host + WORKSPACE_URL);
-        return workspaceRequest.submit();
+    public String loadTimbraturaId() throws RequestException {
+        WorkspaceRequest workspaceRequest = new WorkspaceRequest(client, host + WORKSPACE_URL);
+        return workspaceRequest.loadTimbraturaId();
     }
 
 

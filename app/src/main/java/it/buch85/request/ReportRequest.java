@@ -1,7 +1,5 @@
 package it.buch85.request;
 
-import android.annotation.SuppressLint;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -19,20 +18,19 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ReportRequest extends AbstractRequest {
+public class ReportRequest {
 
-    public ReportRequest(OkHttpClient client) {
-        super(client);
-    }
+    private final OkHttpClient client;
+    private final String url;
 
-    public void setUrl(String url) {
+    public ReportRequest(OkHttpClient client, String url) {
+        this.client = client;
         this.url = url;
     }
 
     public ArrayList<RecordTimbratura> getTimbrature(Date date) throws IOException, JSONException {
 
-        @SuppressLint("SimpleDateFormat")
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         RequestBody formBody = new FormBody.Builder()
                 .add("rows", "10")
@@ -49,9 +47,8 @@ public class ReportRequest extends AbstractRequest {
 
         Call call = client.newCall(request);
         Response response = call.execute();
-
-        JSONObject jsonObject = new JSONObject(response.body().string());
-
+        String string = response.body().string();
+        JSONObject jsonObject = new JSONObject(string); //todo
 
         JSONArray fields = jsonObject.getJSONArray("Fields");
         String[] headers = new String[fields.length()];
