@@ -1,9 +1,13 @@
 package it.buch85;
 
+import org.jetbrains.annotations.NotNull;
+
 import it.buch85.request.LoginResult;
 import it.buch85.request.LoginRequest;
 import it.buch85.request.RecordTimbratura;
 import it.buch85.request.ReportRequest;
+import it.buch85.request.TimbraturaRequest;
+import it.buch85.request.McIDRequest;
 import okhttp3.CookieJar;
 import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
@@ -28,13 +32,19 @@ public class Timbrum {
     private final String              username;
     private final String              password;
 	private String host;
-    private final OkHttpClient client;
+    private static final OkHttpClient client = createClient();
 
     public Timbrum(String host, String username, String password) {
         this.host = host;
 		this.username = username;
         this.password = password;
 
+//        client = createClient();
+    }
+
+    @NotNull
+    private static OkHttpClient createClient() {
+        final OkHttpClient client;
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         CookieJar cookieJar = new JavaNetCookieJar(cookieManager);
@@ -43,6 +53,7 @@ public class Timbrum {
                 .followRedirects(false)
                 .cookieJar(cookieJar)
                 .build();
+        return client;
     }
 
     public ArrayList<RecordTimbratura> getReport(Date date) throws Exception {
@@ -61,14 +72,20 @@ public class Timbrum {
     }
 
 
-    public void timbra(String verso) throws IOException {
-//        TimbraturaRequest timbratura = new TimbraturaRequest(new DefaultHttpClient(),context2);
-//        timbratura.setUrl(host+TIMBRUS_URL);
-//        if (TimbraturaRequest.VERSO_ENTRATA.equals(verso)) {
-//           timbratura.entrata();
-//        } else {
-//           timbratura.uscita();
-//        }
+    public void timbra(String verso, String mcId) throws IOException {
+        TimbraturaRequest timbratura = new TimbraturaRequest(client);
+        timbratura.setUrl(host+TIMBRUS_URL);
+        if (TimbraturaRequest.VERSO_ENTRATA.equals(verso)) {
+           timbratura.entrata(mcId);
+        } else {
+           timbratura.uscita(mcId);
+        }
     }
+
+    public String getWorkspace() throws IOException {
+        McIDRequest mcIDRequest = new McIDRequest(client);
+        return mcIDRequest.submit();
+    }
+
 
 }

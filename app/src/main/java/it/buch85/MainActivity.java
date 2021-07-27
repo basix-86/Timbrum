@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private TimbrumPreferences timbrumPreferences;
     private ListView listView;
     private Button buttonRefresh;
+    private Button buttonWorkspace;
 
     /**
      * The view to show the ad.
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             // new PlaceholderFragment()).commit();
             seekBar = (SeekBar) findViewById(R.id.seekBar1);
             buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
+            buttonWorkspace = (Button) findViewById(R.id.buttonWorkspace);
             listView = (ListView) findViewById(R.id.listView1);
             workedText = (TextView) findViewById(R.id.textWorked);
             remainingText = (TextView) findViewById(R.id.textRemaining);
@@ -94,6 +97,14 @@ public class MainActivity extends AppCompatActivity {
                     refresh();
                 }
             });
+
+            buttonWorkspace.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getWorkspace();
+                }
+            });
+
             if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.FROYO) {
                 // only for gingerbread and newer versions
 
@@ -104,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         enableDisableButtons();
+    }
+
+    private void getWorkspace() {
+        new TimbrumTask().execute();
     }
 
     protected void refresh() {
@@ -227,9 +242,15 @@ public class MainActivity extends AppCompatActivity {
             try {
                 publishProgress(getString(R.string.logging_in));
                 LoginResult loginResult = timbrum.login();
+
+
                 if (loginResult.isSuccess()) {
                     Date now = new Date();
                     if (versoTimbratura != null) {
+                        String mcId = timbrum.getWorkspace();
+
+
+
                         publishProgress(getString(R.string.loading_logs));
                         ArrayList<RecordTimbratura> report = timbrum.getReport(now);
                         if (exitAsFirstTimbrum(report) || doubleTimbrum(report)) {
@@ -256,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if (isConfirmed) {
                             publishProgress(getString(R.string.timbrum_in_progress));
-                            timbrum.timbra(versoTimbratura);
+                            timbrum.timbra(versoTimbratura, mcId);
                         } else {
                             return report;
                         }

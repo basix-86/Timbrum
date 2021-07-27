@@ -1,46 +1,55 @@
 package it.buch85.request;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HttpContext;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
-/**
- * Created by mbacer on 11/04/14.
- */
-public class TimbraturaRequest extends AbstractRequest {
+public class TimbraturaRequest {
 
-    public static final String VERSO_FIELD   = "verso";
+    public static final String VERSO_FIELD = "verso";
     public static final String VERSO_ENTRATA = "E";
-    public static final String VERSO_USCITA  = "U";
+    public static final String VERSO_USCITA = "U";
 
-    public TimbraturaRequest(HttpClient httpclient, HttpContext context) {
-        super(httpclient, context);
+    private OkHttpClient client;
+
+    protected String url;
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    private void timbraVerso(String verso) throws IOException {
-    	request = new HttpPost(URI.create(url));
-        List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-        formparams.add(new BasicNameValuePair(VERSO_FIELD, verso));
-        request.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
-        HttpResponse response = httpclient.execute(request,context);
-        response.getEntity().consumeContent();
-        System.out.println("Login form get: " + response.getStatusLine());
+    public TimbraturaRequest(OkHttpClient client) {
+        this.client = client;
     }
 
-    public void entrata() throws IOException {
-        timbraVerso(VERSO_ENTRATA);
+    private void timbraVerso(String verso, String mcId) throws IOException {
+
+        RequestBody formBody = new FormBody.Builder()
+                .add(VERSO_FIELD, verso)
+                .add("m_cID", mcId)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        System.out.println("Login form get: " + response);
     }
 
-    public void uscita() throws IOException {
-        timbraVerso(VERSO_USCITA);
+    public void entrata(String mcId) throws IOException {
+        timbraVerso(VERSO_ENTRATA,mcId);
+    }
+
+    public void uscita(String mcId) throws IOException {
+        timbraVerso(VERSO_USCITA, mcId);
     }
 }
