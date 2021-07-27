@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setTitle(getString(R.string.loading));
             progressDialog.setMessage(getString(R.string.please_wait));
-            timbrum = new Timbrum(timbrumPreferences.getHost(), timbrumPreferences.getUsername(), timbrumPreferences.getPassword(), getBaseContext());
+            timbrum = new Timbrum(timbrumPreferences.getHost(), timbrumPreferences.getUsername(), timbrumPreferences.getPassword());
         }
 
         @Override

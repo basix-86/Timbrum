@@ -1,12 +1,16 @@
 package it.buch85;
 
-import android.content.Context;
-
 import it.buch85.request.LoginResult;
 import it.buch85.request.LoginRequest;
 import it.buch85.request.RecordTimbratura;
+import it.buch85.request.ReportRequest;
+import okhttp3.CookieJar;
+import okhttp3.JavaNetCookieJar;
+import okhttp3.OkHttpClient;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,31 +27,33 @@ public class Timbrum {
 
     private final String              username;
     private final String              password;
-    private Context context2;
-    //private BasicHttpContext context;
 	private String host;
+    private final OkHttpClient client;
 
-    public Timbrum(String host, String username, String password, Context context2) {
+    public Timbrum(String host, String username, String password) {
         this.host = host;
 		this.username = username;
         this.password = password;
-        this.context2 = context2;
 
-//        context=new BasicHttpContext();
-//        BasicCookieStore cookieStore=new BasicCookieStore();
-//        context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        CookieJar cookieJar = new JavaNetCookieJar(cookieManager);
+
+        client = new OkHttpClient.Builder()
+                .followRedirects(false)
+                .cookieJar(cookieJar)
+                .build();
     }
 
     public ArrayList<RecordTimbratura> getReport(Date date) throws Exception {
-//        ReportRequest report = new ReportRequest( new DefaultHttpClient(),context);
-//        report.setUrl(host+SQL_DATA_PROVIDER_URL);
-//        return report.getTimbrature(new Date());
+        ReportRequest report = new ReportRequest(client);
+        report.setUrl(host+SQL_DATA_PROVIDER_URL);
+        return report.getTimbrature(new Date());
 
-        return new ArrayList<>();
     }
 
     public LoginResult login() throws IOException {
-        LoginRequest login = new LoginRequest();
+        LoginRequest login = new LoginRequest(client);
         login.setUrl(host+LOGIN_URL);
         login.setUsername(username);
         login.setPassword(password);

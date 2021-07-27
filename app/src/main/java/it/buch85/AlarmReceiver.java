@@ -26,7 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 			final TimbrumPreferences preferences = new TimbrumPreferences(
 					PreferenceManager.getDefaultSharedPreferences(context));
 			final Timbrum timbrum = new Timbrum(preferences.getHost(),
-					preferences.getUsername(), preferences.getPassword(), null);
+					preferences.getUsername(), preferences.getPassword());
 
 			new AsyncTask<Void,Void,Void>() {
 				@Override

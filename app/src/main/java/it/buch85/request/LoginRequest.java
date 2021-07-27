@@ -11,6 +11,12 @@ import okhttp3.Response;
 
 public class LoginRequest {
 
+    private OkHttpClient client;
+
+    public LoginRequest(OkHttpClient client) {
+        this.client = client;
+    }
+
     String username = "test";
     String password = "test";
     private static String USERNAME_FIELD = "m_cUserName";
@@ -46,13 +52,10 @@ public class LoginRequest {
                 .post(formBody)
                 .build();
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .followRedirects(false)
-                .build();
-
         Call call = client.newCall(request);
-        String message = "";
         Response response = call.execute();
+
+        String message = "";
 
         if (response.code() == 302) {
             if (response.header("Location").endsWith(REDIRECT_OK_URL)) {
