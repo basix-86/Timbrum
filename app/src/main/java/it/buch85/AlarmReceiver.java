@@ -1,7 +1,7 @@
-package it.buch85.timbrum;
+package it.buch85;
 
-import it.buch85.timbrum.prefs.TimbrumPreferences;
-import it.buch85.timbrum.request.RecordTimbratura;
+import it.buch85.prefs.TimbrumPreferences;
+import it.buch85.request.RecordTimbratura;
 
 import java.util.ArrayList;
 import java.util.Date;

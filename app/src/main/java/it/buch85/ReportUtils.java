@@ -1,7 +1,7 @@
-package it.buch85.timbrum;
+package it.buch85;
 
-import it.buch85.timbrum.request.RecordTimbratura;
-import it.buch85.timbrum.request.TimbraturaRequest;
+import it.buch85.request.RecordTimbratura;
+import it.buch85.request.TimbraturaRequest;
 
 import java.util.ArrayList;
 import java.util.Calendar;

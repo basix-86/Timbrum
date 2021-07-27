@@ -1,4 +1,4 @@
-package it.buch85.timbrum.prefs;
+package it.buch85.prefs;
 
 public interface PreferencesAdapter {
 	String getUsername();

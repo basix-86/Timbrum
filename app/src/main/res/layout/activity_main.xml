@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="it.buch85.timbrum.MainActivity"
+    tools:context="it.buch85.MainActivity"
     tools:ignore="MergeRootFrame" >
 
     <RelativeLayout
@@ -126,7 +126,7 @@
         app:adUnitId="ca-app-pub-3940256099942544/6300978111" >
     </com.google.android.gms.ads.AdView>
 
-    <it.buch85.timbrum.NoTapSeekBar
+    <it.buch85.NoTapSeekBar
         android:id="@+id/seekBar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

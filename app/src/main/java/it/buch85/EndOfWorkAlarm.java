@@ -1,4 +1,4 @@
-package it.buch85.timbrum;
+package it.buch85;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

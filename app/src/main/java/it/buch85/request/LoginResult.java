@@ -1,4 +1,4 @@
-package it.buch85.timbrum.request;
+package it.buch85.request;
 
 public class LoginResult {
     boolean success = false;
