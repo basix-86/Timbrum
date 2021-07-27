@@ -1,4 +1,4 @@
-package it.buch85;
+package it.buch85.timbrum;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -24,17 +24,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 
-import it.buch85.prefs.SettingsActivity;
-import it.buch85.prefs.TimbrumPreferences;
-import it.buch85.request.LoginResult;
-import it.buch85.request.RecordTimbratura;
-import it.buch85.request.TimbraturaRequest;
+import it.buch85.timbrum.prefs.SettingsActivity;
+import it.buch85.timbrum.prefs.TimbrumPreferences;
+import it.buch85.timbrum.request.LoginResult;
+import it.buch85.timbrum.request.RecordTimbratura;
+import it.buch85.timbrum.request.TimbraturaRequest;
 
 public class MainActivity extends AppCompatActivity {
     private TimbrumPreferences timbrumPreferences;

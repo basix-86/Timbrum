@@ -1,13 +1,12 @@
-package it.buch85.prefs;
+package it.buch85.timbrum.prefs;
 
-import it.buch85.MainActivity;
+import it.buch85.timbrum.MainActivity;
 
 import java.util.Calendar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
-import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;

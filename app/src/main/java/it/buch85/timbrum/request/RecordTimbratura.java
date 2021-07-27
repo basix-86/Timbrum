@@ -1,11 +1,10 @@
-package it.buch85.request;
+package it.buch85.timbrum.request;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import it.buch85.MainActivity;
-import it.buch85.R;
-
+import it.buch85.timbrum.MainActivity;
+import it.buch85.timbrum.R;
 
 public class RecordTimbratura {
 	private String time;

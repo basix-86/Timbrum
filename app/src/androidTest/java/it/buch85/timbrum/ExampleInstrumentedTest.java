@@ -1,4 +1,4 @@
-package it.buch85;
+package it.buch85.timbrum;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
