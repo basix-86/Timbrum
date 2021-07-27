@@ -9,22 +9,18 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class TimbraturaRequest {
+public class TimbraturaRequest extends AbstractRequest {
 
     public static final String VERSO_FIELD = "verso";
     public static final String VERSO_ENTRATA = "E";
     public static final String VERSO_USCITA = "U";
-
-    private OkHttpClient client;
-
-    protected String url;
 
     public void setUrl(String url) {
         this.url = url;
     }
 
     public TimbraturaRequest(OkHttpClient client) {
-        this.client = client;
+        super(client);
     }
 
     private void timbraVerso(String verso, String mcId) throws IOException {
@@ -43,10 +39,12 @@ public class TimbraturaRequest {
         Response response = call.execute();
 
         System.out.println("Login form get: " + response);
+
+        //todo senza mcid c'è errore... da gestire
     }
 
     public void entrata(String mcId) throws IOException {
-        timbraVerso(VERSO_ENTRATA,mcId);
+        timbraVerso(VERSO_ENTRATA, mcId);
     }
 
     public void uscita(String mcId) throws IOException {

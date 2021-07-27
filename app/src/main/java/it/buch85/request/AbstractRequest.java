@@ -1,27 +1,18 @@
 package it.buch85.request;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HttpContext;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by mbacer on 23/04/14.
  */
-public class AbstractRequest {
+public abstract class AbstractRequest {
 
-    protected HttpClient httpclient;
-    protected String              url;
-    protected HttpContext context;
-    protected HttpPost request;
+    protected final OkHttpClient client;
 
-    public AbstractRequest(HttpClient httpclient, HttpContext context) {
-        this.httpclient = httpclient;
-        HttpParams httpParameters = httpclient.getParams();
-        HttpConnectionParams.setConnectionTimeout(httpParameters, 5000);
-        HttpConnectionParams.setSoTimeout(httpParameters, 10000);
-		this.context = context;
+    protected String url;
+
+    public AbstractRequest(OkHttpClient client) {
+        this.client = client;
     }
 
     public void setUrl(String url) {

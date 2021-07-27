@@ -15,6 +15,7 @@
     <string name="textview_todaysLog">Today\'s Log</string>
     <string name="refresh">Refresh</string>
     <string name="logging_in">Logging in...</string>
+    <string name="loading_workspace">Loading workspace...</string>
     <string name="timbrum_in_progress">Timbrum in progress...</string>
     <string name="entry">Entry</string>
     <string name="exit">Exit</string>

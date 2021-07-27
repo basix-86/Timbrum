@@ -9,23 +9,21 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class LoginRequest {
-
-    private OkHttpClient client;
+public class LoginRequest extends AbstractRequest {
 
     public LoginRequest(OkHttpClient client) {
-        this.client = client;
+        super(client);
     }
 
-    String username = "test";
-    String password = "test";
+    String username = "";
+    String password = "";
+
     private static String USERNAME_FIELD = "m_cUserName";
     private static String PASSWORD_FIELD = "m_cPassword";
     private static String ACTION_FIELD = "m_cAction";
     private static String ACTION_FIELD_VALUE = "login";
 
     private static String REDIRECT_OK_URL = "/jsp/home.jsp";
-    protected String url;
 
     public void setUrl(String url) {
         this.url = url;

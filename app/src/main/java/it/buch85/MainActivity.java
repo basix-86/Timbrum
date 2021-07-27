@@ -247,10 +247,6 @@ public class MainActivity extends AppCompatActivity {
                 if (loginResult.isSuccess()) {
                     Date now = new Date();
                     if (versoTimbratura != null) {
-                        String mcId = timbrum.getWorkspace();
-
-
-
                         publishProgress(getString(R.string.loading_logs));
                         ArrayList<RecordTimbratura> report = timbrum.getReport(now);
                         if (exitAsFirstTimbrum(report) || doubleTimbrum(report)) {
@@ -276,7 +272,10 @@ public class MainActivity extends AppCompatActivity {
                             latch.await();
                         }
                         if (isConfirmed) {
+                            publishProgress(getString(R.string.loading_workspace));
+                            String mcId = timbrum.getWorkspace();
                             publishProgress(getString(R.string.timbrum_in_progress));
+
                             timbrum.timbra(versoTimbratura, mcId);
                         } else {
                             return report;
