@@ -31,7 +31,7 @@ import java.util.concurrent.CountDownLatch;
 
 import it.buch85.prefs.SettingsActivity;
 import it.buch85.prefs.TimbrumPreferences;
-import it.buch85.request.LoginRequest.LoginResult;
+import it.buch85.request.LoginResult;
 import it.buch85.request.RecordTimbratura;
 import it.buch85.request.TimbraturaRequest;
 

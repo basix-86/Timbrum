@@ -1,37 +1,28 @@
 package it.buch85.request;
 
-
 import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.HttpClientParams;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.protocol.HttpRequestExecutor;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
-/**
- * Created by mbacer on 11/04/14.
- */
-public class LoginRequest extends AbstractRequest {
-    String username;
-    String password;
+public class LoginRequest {
+
+    String username = "test";
+    String password = "test";
     private static String USERNAME_FIELD = "m_cUserName";
     private static String PASSWORD_FIELD = "m_cPassword";
     private static String ACTION_FIELD = "m_cAction";
     private static String ACTION_FIELD_VALUE = "login";
 
     private static String REDIRECT_OK_URL = "/jsp/home.jsp";
+    protected String url;
 
-    public LoginRequest(HttpClient httpclient, HttpContext context) {
-        super(httpclient, context);
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setUsername(String username) {
@@ -43,44 +34,33 @@ public class LoginRequest extends AbstractRequest {
     }
 
     public LoginResult submit() throws IOException {
-    	request = new HttpPost(URI.create(url));
-    	List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-        formparams.add(new BasicNameValuePair(USERNAME_FIELD, username));
-        formparams.add(new BasicNameValuePair(PASSWORD_FIELD, password));
-        formparams.add(new BasicNameValuePair(ACTION_FIELD, ACTION_FIELD_VALUE));
-        request.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
-        HttpClientParams.setRedirecting(httpclient.getParams(), false);
-        HttpResponse response = httpclient.execute(request,context);
-        response.getEntity().consumeContent();
-        String message="";
-        if (response.getStatusLine().getStatusCode() == 302) {
-            Header[] location = response.getHeaders("Location");
-            if (location.length > 0 && location[0].getValue().endsWith(REDIRECT_OK_URL)) {
-                return new LoginResult(true,message);
+
+        RequestBody formBody = new FormBody.Builder()
+                .add(USERNAME_FIELD, username)
+                .add(PASSWORD_FIELD, password)
+                .add(ACTION_FIELD, ACTION_FIELD_VALUE)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .followRedirects(false)
+                .build();
+
+        Call call = client.newCall(request);
+        String message = "";
+        Response response = call.execute();
+
+        if (response.code() == 302) {
+            if (response.header("Location").endsWith(REDIRECT_OK_URL)) {
+                return new LoginResult(true, message);
             }
         } else {
-            Header[] jsurlMessage = response.getHeaders("JSURL-Message");
-            if (jsurlMessage.length > 0) {
-                message = jsurlMessage[0].getValue();
-            }
+            message = response.header("JSURL-Message");
         }
         return new LoginResult(false, message);
-    }
-
-    
-    public class LoginResult{
-    	boolean success=false;
-    	String message="";
-    	public LoginResult(boolean success,String message) {
-    		this.success=success;
-    		this.message=message;
-		}
-    	
-    	public boolean isSuccess() {
-			return success;
-		}
-    	public String getMessage() {
-			return message;
-		}
     }
 }

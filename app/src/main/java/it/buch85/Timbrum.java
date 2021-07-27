@@ -2,21 +2,13 @@ package it.buch85;
 
 import android.content.Context;
 
+import it.buch85.request.LoginResult;
 import it.buch85.request.LoginRequest;
-import it.buch85.request.LoginRequest.LoginResult;
-import it.buch85.request.LoginRequest2;
 import it.buch85.request.RecordTimbratura;
-import it.buch85.request.ReportRequest;
-import it.buch85.request.TimbraturaRequest;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
 
 
 /**
@@ -55,18 +47,11 @@ public class Timbrum {
     }
 
     public LoginResult login() throws IOException {
-//        LoginRequest login = new LoginRequest( new DefaultHttpClient(),context);
-//        login.setUrl(host+LOGIN_URL);
-//        login.setUsername(username);
-//        login.setPassword(password);
-//        return login.submit();
-
-        LoginRequest2 login = new LoginRequest2( context2);
+        LoginRequest login = new LoginRequest();
         login.setUrl(host+LOGIN_URL);
         login.setUsername(username);
         login.setPassword(password);
-        login.submit2();
-        return null;
+        return login.submit();
     }
 
 
