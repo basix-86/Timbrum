@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private TimbrumPreferences timbrumPreferences;
     private ListView listView;
     private Button buttonRefresh;
-    private Button buttonWorkspace;
 
     /**
      * The view to show the ad.
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             // new PlaceholderFragment()).commit();
             seekBar = (SeekBar) findViewById(R.id.seekBar1);
             buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
-            buttonWorkspace = (Button) findViewById(R.id.buttonWorkspace);
             listView = (ListView) findViewById(R.id.listView1);
             workedText = (TextView) findViewById(R.id.textWorked);
             remainingText = (TextView) findViewById(R.id.textRemaining);
@@ -97,13 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            buttonWorkspace.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getWorkspace();
-                }
-            });
-
             if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.FROYO) {
                 // only for gingerbread and newer versions
 
@@ -114,10 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         enableDisableButtons();
-    }
-
-    private void getWorkspace() {
-        new TimbrumTask().execute();
     }
 
     protected void refresh() {
