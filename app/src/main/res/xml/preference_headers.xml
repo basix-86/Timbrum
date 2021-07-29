@@ -2,8 +2,8 @@
 
     <header
         android:fragment="it.buch85.prefs.SettingsActivity$First"
-        android:summary="@string/header1summary"
-        android:title="@string/header1title">
+        android:summary="@string/edit_settings_summary"
+        android:title="@string/edit_settings_header">
     </header>
 
 
