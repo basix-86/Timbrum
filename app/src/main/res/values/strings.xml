@@ -10,8 +10,8 @@
     <string name="pref_password_summary">Password used to login to HR Portal</string>
     <string name="pref_worktime">Time to work</string>
     <string name="pref_worktime_summary">Usual work hours and minutes</string>
-    <string name="button_enter">Enter</string>
-    <string name="button_exit">Exit</string>
+    <string name="button_enter">ENTER</string>
+    <string name="button_exit">EXIT</string>
     <string name="textview_todaysLog">Today\'s Log</string>
     <string name="refresh">Refresh</string>
     <string name="logging_in">Logging in...</string>
