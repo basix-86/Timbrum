@@ -39,6 +39,6 @@
     <string name="confirm_exit_title">Exit Confirmation</string>
     <string name="confirm_entry_message">Are you sure you want to sign-in?</string>
     <string name="confirm_exit_message">Are you sure you want to sign-out?</string>
-    <string name="header1summary">Change Host, Credentials and other settings</string>
-    <string name="header1title">Edit Settings</string>
+    <string name="edit_settings_summary">Change Host, Credentials and other settings</string>
+    <string name="edit_settings_header">Edit Settings</string>
 </resources>
