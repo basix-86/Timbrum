@@ -14,7 +14,7 @@
         android:key="pref_password"
         android:summary="@string/pref_password_summary"
         android:title="@string/pref_password" />
-    <it.buch85.prefs.TimePreference
+    <it.buch85.timbrum.prefs.TimePreference
         android:defaultValue="28800000"
         android:key="pref_worktime"
         android:summary="@string/pref_worktime_summary"

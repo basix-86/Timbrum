@@ -1,4 +1,4 @@
-package it.buch85.prefs;
+package it.buch85.timbrum.prefs;
 
 import android.content.SharedPreferences;
 

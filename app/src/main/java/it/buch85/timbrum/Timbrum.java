@@ -1,4 +1,4 @@
-package it.buch85;
+package it.buch85.timbrum;
 
 import java.io.IOException;
 import java.net.CookieManager;
@@ -6,13 +6,13 @@ import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.Date;
 
-import it.buch85.request.LoginRequest;
-import it.buch85.request.LoginResult;
-import it.buch85.request.RecordTimbratura;
-import it.buch85.request.ReportRequest;
-import it.buch85.request.RequestException;
-import it.buch85.request.TimbraturaRequest;
-import it.buch85.request.WorkspaceRequest;
+import it.buch85.timbrum.request.LoginRequest;
+import it.buch85.timbrum.request.LoginResult;
+import it.buch85.timbrum.request.RecordTimbratura;
+import it.buch85.timbrum.request.ReportRequest;
+import it.buch85.timbrum.request.RequestException;
+import it.buch85.timbrum.request.TimbraturaRequest;
+import it.buch85.timbrum.request.WorkspaceRequest;
 import okhttp3.CookieJar;
 import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;

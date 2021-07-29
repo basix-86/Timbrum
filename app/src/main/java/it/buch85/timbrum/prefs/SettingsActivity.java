@@ -1,4 +1,4 @@
-package it.buch85.prefs;
+package it.buch85.timbrum.prefs;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -6,7 +6,7 @@ import android.preference.PreferenceFragment;
 
 import java.util.List;
 
-import it.buch85.R.xml;
+import it.buch85.timbrum.R.xml;
 
 
 public class SettingsActivity extends PreferenceActivity  {
