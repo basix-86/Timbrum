@@ -25,6 +25,11 @@
         <activity
             android:name=".prefs.SettingsActivity"
             android:label="@string/app_name"/>
+        <activity
+            android:name=".prefs.TimePreference"
+            android:label="@string/app_name"/>
+
+
     </application>
 
 </manifest>

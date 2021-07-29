@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
+        android:defaultValue="https://saas.hrzucchetti.it/hrpdefault"
         android:key="pref_host"
-        android:title="@string/pref_host"
         android:summary="@string/pref_host_summary"
-        android:defaultValue="https://saas.hrzucchetti.it/hrpdefault/"
-    />
+        android:title="@string/pref_host" />
     <EditTextPreference
         android:key="pref_username"
-        android:title="@string/pref_username"
         android:summary="@string/pref_username_summary"
-    />
+        android:title="@string/pref_username" />
     <EditTextPreference
-        android:key="pref_password"
-        android:title="@string/pref_password"
-        android:summary="@string/pref_password_summary"
         android:inputType="textPassword"
-    />
-<!--    <it.buch85.timbrum.prefs.TimePreference-->
-<!--        android:key="pref_worktime"-->
-<!--        android:title="@string/pref_worktime"-->
-<!--        android:summary="@string/pref_worktime_summary"-->
-<!--		android:defaultValue="28800000"-->
-<!--		 />-->
+        android:key="pref_password"
+        android:summary="@string/pref_password_summary"
+        android:title="@string/pref_password" />
+    <it.buch85.prefs.TimePreference
+        android:defaultValue="28800000"
+        android:key="pref_worktime"
+        android:summary="@string/pref_worktime_summary"
+        android:title="@string/pref_worktime" />
 </PreferenceScreen>
