@@ -228,13 +228,11 @@ public class MainActivity extends AppCompatActivity {
             try {
                 publishProgress(getString(R.string.logging_in));
                 LoginResult loginResult = timbrum.login();
-
-
                 if (loginResult.isSuccess()) {
-                    Date now = new Date();
+
                     if (versoTimbratura != null) {
                         publishProgress(getString(R.string.loading_logs));
-                        ArrayList<RecordTimbratura> report = timbrum.getReport(now);
+                        ArrayList<RecordTimbratura> report = timbrum.getReport();
                         if (exitAsFirstTimbrum(report) || doubleTimbrum(report)) {
                             isConfirmed = false;
                             final CountDownLatch latch = new CountDownLatch(1);
@@ -259,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if (isConfirmed) {
                             publishProgress(getString(R.string.loading_workspace));
-                            String timbraturaId = timbrum.loadTimbraturaId();
+                            String timbraturaId = timbrum.getTimbraturaId();
                             publishProgress(getString(R.string.timbrum_in_progress));
 
                             timbrum.timbra(versoTimbratura, timbraturaId);
@@ -268,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     publishProgress(getString(R.string.loading_logs));
-                    return timbrum.getReport(now);
+                    return timbrum.getReport();
                 } else {
                     message = getString(R.string.login_error) + loginResult.getMessage();
                 }

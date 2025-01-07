@@ -33,7 +33,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 				protected Void doInBackground(Void... params) {
 					try {
 						if (timbrum.login().isSuccess()) {
-							ArrayList<RecordTimbratura> timbrumRecords = timbrum.getReport(new Date());
+							ArrayList<RecordTimbratura> timbrumRecords = timbrum.getReport();
 							ReportUtils reportUtils = new ReportUtils(timbrumRecords);
 							if (reportUtils.validate()&& reportUtils.stillHaveToExit()) {
 								long remaining = reportUtils.getRemainingTime(preferences.getTimeToWork());
